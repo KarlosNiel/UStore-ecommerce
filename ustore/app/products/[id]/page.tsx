@@ -2,10 +2,8 @@ import { ProductProps } from "../../../types/ProductProps";
 import { HeroCardDetailProduct } from "./_components/HeroCardDetailProduct";
 import { HeroPassPage } from "./_components/HeroPassPage";
 
-export default async function ProductPage(props: { params: { id: string }}) {
-    const { params } = props;
-    const resolvedParams = await params;
-    const { id } = resolvedParams;
+export default async function ProductPage({ params }: { params: { id: string } }) {
+    const { id } = params;
 
     // Busca o produto atual
     const response = await fetch(
@@ -21,7 +19,8 @@ export default async function ProductPage(props: { params: { id: string }}) {
     const allProductsRes = await fetch("https://fakestoreapi.com/products");
     const allProducts: ProductProps[] = await allProductsRes.json();
     const total = allProducts.length;
-    // Procura o índice do produto atual (começando em 1 para UX, ou 0 se preferir)
+
+    // Procura o índice do produto atual
     const initialPage = allProducts.findIndex(p => p.id === product.id) + 1;
 
     return (
