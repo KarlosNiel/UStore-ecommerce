@@ -2,8 +2,12 @@ import { ProductProps } from "../../../types/ProductProps";
 import { HeroCardDetailProduct } from "./_components/HeroCardDetailProduct";
 import { HeroPassPage } from "./_components/HeroPassPage";
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
-    const { id } = params;
+
+export default async function ProductPage({ params }: { params: { id: string } } | { params: Promise<{ id: string }> }) {
+    const resolvedParams = await params as { id: string };
+    const { id } = resolvedParams;
+    // ...
+
 
     // Busca o produto atual
     const response = await fetch(

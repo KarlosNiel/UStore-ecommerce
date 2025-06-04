@@ -3,9 +3,9 @@ import {
     DrawerContent,
     DrawerHeader,
     DrawerBody,
-    DrawerFooter,
+  DrawerFooter,
     Button,
-    useDisclosure,
+  useDisclosure,
 } from "@heroui/react";
 
 import { CartIcon } from "@/components/ui/icons/common-icons/cart";
@@ -13,8 +13,8 @@ import { HeroProductCard } from "@/components/product-in-cart/HeroProductCard";
 import { useCart } from "@/hooks/useCart"; // Importe seu contexto de carrinho
 
 export const HeroDrawerCart = () => {
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const { cart } = useCart(); // cart é um array de CartItem
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { cart } = useCart(); // cart é um array de CartItem
 
     return (
         <>
