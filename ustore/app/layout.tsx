@@ -10,6 +10,7 @@ import { fontSans } from "@/config/fonts";
 import { HeroNavbar } from "@/components/hero-navbar/HeroNavbar";
 import { HeroFooter } from "@/components/hero-footer/HeroFooter";
 import { CartProvider } from "@/context/CartContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
   title: {
@@ -43,17 +44,19 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <CartProvider>
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col min-h-screen">
-            <HeroNavbar />
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
-              {children}
-            </main>
-            <HeroFooter />
-          </div>
-        </Providers>
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+          <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+            <div className="relative flex flex-col min-h-screen">
+              <HeroNavbar />
+              <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+                {children}
+              </main>
+              <HeroFooter />
+            </div>
+          </Providers>
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

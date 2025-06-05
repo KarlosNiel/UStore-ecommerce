@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useAuth } from "@/context/AuthContext";
 import {
   Navbar,
   NavbarBrand,
@@ -14,14 +15,14 @@ import {
 } from "@heroui/react";
 
 import { HeroDrawerCart } from "@/components/hero-drawer/HeroDrawerCart";
-
 import { ThemeSwitch } from "../theme-switch";
 import { Logo } from "@/components/ui/logo";
-import { CartIcon } from "../ui/icons/common-icons/cart"
+import { CartIcon } from "../ui/icons/common-icons/cart";
 import { HeroNavbarItem } from "./HeroNavbarItem";
 
 export const HeroNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const { isAuthenticated, logout, loading } = useAuth();
 
   const menuItems = [
     "Profile",
@@ -36,6 +37,8 @@ export const HeroNavbar = () => {
     "Log Out",
   ];
 
+  if (loading) return null;
+
   return (
     <Navbar className="bg-black dark:bg-transparent text-white" onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
@@ -49,8 +52,8 @@ export const HeroNavbar = () => {
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <HeroNavbarItem nome="Homepage" href="http://localhost:3000/products/" />
-        <HeroNavbarItem nome="Categories" href="http://localhost:3000/products/category/" />
+        <HeroNavbarItem nome="Homepage" href="/products/" />
+        <HeroNavbarItem nome="Categories" href="/products/category/" />
         <HeroNavbarItem nome="About" href="#" />
         <HeroNavbarItem nome="Contact" href="#contato"/>
       </NavbarContent>
@@ -62,7 +65,13 @@ export const HeroNavbar = () => {
         <NavbarItem className="hidden lg:flex">
           <ThemeSwitch />
         </NavbarItem>
-        <HeroNavbarItem nome="Sign In" href="#" />
+        {!isAuthenticated ? (
+          <HeroNavbarItem nome="Sign In" href="/auth/login" />
+        ) : (
+          <span className="text-danger text-bold hover:text-red-500 cursor-pointer transition-colors duration-200" onClick={logout}>
+            Logout
+          </span>
+        )}
       </NavbarContent>
 
       <NavbarMenu>

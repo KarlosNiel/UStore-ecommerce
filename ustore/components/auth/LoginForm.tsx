@@ -1,4 +1,3 @@
-// src/components/auth/LoginForm.tsx
 'use client';
 
 import React, { useState } from 'react';
@@ -32,6 +31,7 @@ export const LoginForm = () => {
             const success = await login(email, password);
             if (success) {
                 router.push('/products/');
+                router.refresh();
             } else {
                 setError('Credenciais inválidas. Por favor, tente novamente.');
             }

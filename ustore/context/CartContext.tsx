@@ -1,46 +1,92 @@
+
 "use client";
-import React, { createContext, useContext, useState } from "react";
-import { CartItem } from "@/types/CartItem";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { Cart, CartProduct } from "@/types/Cart";
+
 
 type CartContextType = {
-    cart: CartItem[];
-    addToCart: (item: Omit<CartItem, "quantity">) => void;
-    removeFromCart: (id: number) => void;
+    cart: CartProduct[];
+    addToCart: (productId: number, quantity?: number) => void;
+    decreaseQuantity: (productId: number) => void;
+    removeFromCart: (productId: number) => void;
     clearCart: () => void;
+    syncCart: () => Promise<void>;
 };
 
-const CartContext = createContext<CartContextType | undefined>(undefined);
+export const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-    const [cart, setCart] = useState<CartItem[]>([]);
+    const [cart, setCart] = useState<CartProduct[]>([]);
+    const userId = 1; // Pegue do contexto de auth se quiser
 
-    function addToCart(item: Omit<CartItem, "quantity">) {
+    // Carrega do localStorage ao iniciar
+    useEffect(() => {
+        const stored = localStorage.getItem("cart");
+        if (stored) setCart(JSON.parse(stored));
+    }, []);
+
+    // Salva no localStorage sempre que mudar
+    useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }, [cart]);
+
+    function addToCart(productId: number, quantity: number = 1) {
         setCart((prev) => {
-            const exists = prev.find((p) => p.id === item.id);
+            const exists = prev.find((p) => p.productId === productId);
             if (exists) {
                 return prev.map((p) =>
-                    p.id === item.id ? { ...p, quantity: p.quantity + 1 } : p
+                    p.productId === productId
+                        ? { ...p, quantity: p.quantity + quantity }
+                        : p
                 );
             }
-            return [...prev, { ...item, quantity: 1 }];
+            return [...prev, { productId, quantity }];
         });
     }
+    function decreaseQuantity(productId: number) {
+    setCart((prev) =>
+        prev.map((p) =>
+            p.productId === productId && p.quantity > 1
+                ? { ...p, quantity: p.quantity - 1 }
+                : p
+        )
+    );
+}
 
-    function removeFromCart(id: number) {
-        setCart((prev) => prev.filter((item) => item.id !== id));
+    function removeFromCart(productId: number) {
+        setCart((prev) => prev.filter((p) => p.productId !== productId));
     }
 
     function clearCart() {
         setCart([]);
     }
 
+    // Sincroniza com a Fake Store API (POST ou PUT)
+    async function syncCart() {
+        const payload = {
+            userId,
+            date: new Date().toISOString().split("T")[0],
+            products: cart,
+        };
+        // Se já existe um carrinho, use PUT, senão POST
+        await fetch("https://fakestoreapi.com/carts", {
+            method: "POST",
+            body: JSON.stringify(payload),
+            headers: { "Content-Type": "application/json" },
+        });
+    }
+
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+        <CartContext.Provider
+            value={{ cart, addToCart, removeFromCart, clearCart, syncCart, decreaseQuantity }}
+        >
             {children}
         </CartContext.Provider>
     );
 }
 
-export { CartContext };   
-export type { CartItem };
-
+export function useCart() {
+    const ctx = useContext(CartContext);
+    if (!ctx) throw new Error("useCart must be used within a CartProvider");
+    return ctx;
+}

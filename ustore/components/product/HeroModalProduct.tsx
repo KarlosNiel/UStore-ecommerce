@@ -11,6 +11,7 @@ import {
 } from "@heroui/react";
 import { useDisclosure } from "@heroui/react";
 import { ProductProps } from "../../types/ProductProps";
+import { HeroAddToCartButton } from "../cart/HeroAddToCartButton";
 
 export const HeroModalProduct = ({
     id,
@@ -52,9 +53,7 @@ export const HeroModalProduct = ({
                                 <Button color="danger" variant="light" onPress={onClose}>
                                     Fechar
                                 </Button>
-                                <Button color="primary" onPress={onClose}>
-                                    Comprar
-                                </Button>
+                                <HeroAddToCartButton productId={id} />
                             </ModalFooter>
                         </>
                     )}
