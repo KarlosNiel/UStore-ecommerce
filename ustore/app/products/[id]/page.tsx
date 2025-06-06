@@ -1,6 +1,7 @@
 import { ProductProps } from "../../../types/ProductProps";
-import { HeroCardDetailProduct } from "./_components/HeroCardDetailProduct";
-import { HeroPassPage } from "./_components/HeroPassPage";
+import { HeroCardDetailProduct } from "../../../components/product/HeroCardDetailProduct";
+import { HeroPassPage } from "../../../components/product/HeroPassPage";
+
 
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {

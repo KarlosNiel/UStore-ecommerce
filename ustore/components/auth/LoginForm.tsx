@@ -50,7 +50,7 @@ export const LoginForm = () => {
     };
 
     return (
-        <Card className="max-w-md mx-auto p-6 mb-10 shadow-lg ">
+        <Card className="max-w-md mx-auto p-6 mb-14 shadow-lg ">
             <CardHeader className='flex flex-col items-center space-y-2'>
                 <h1 className="text-xl font-semibold text-center">Login</h1>
             </CardHeader>
@@ -64,19 +64,20 @@ export const LoginForm = () => {
                         isRequired
                         errorMessage={({ validationDetails }) => {
                             if (validationDetails.valueMissing) {
-                                return "Por favor, insira seu email";
+                                return "Por favor, insira esse email: john@gmail.com";
                             }
                             if (validationDetails.typeMismatch) {
-                                return "Por favor, insira um email válido";
+                                return "Por favor, insira um email válido: john@gmail.com";
                             }
                         }}
                         label="Email"
                         labelPlacement="outside"
                         name="email"
-                        placeholder="seu@email.com"
+                        placeholder="john@gmail.com"
                         type="email"
                         value={email}
                         onValueChange={setEmail}
+                        description="Digite este email para logar: john@gmail.com"
                     />
 
                     <Input
@@ -88,6 +89,7 @@ export const LoginForm = () => {
                         type="password"
                         value={password}
                         onValueChange={setPassword}
+                        description="Digite esta senha para logar: m38rmF$"
                     />
 
                     <div className="flex items-center justify-center">

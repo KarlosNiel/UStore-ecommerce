@@ -2,6 +2,7 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Cart, CartProduct } from "@/types/Cart";
+import { useAuth } from "@/context/AuthContext"
 
 
 type CartContextType = {
@@ -17,7 +18,8 @@ export const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
     const [cart, setCart] = useState<CartProduct[]>([]);
-    const userId = 1; // Pegue do contexto de auth se quiser
+    const userId = 1;
+    const { isAuthenticated } = useAuth();
 
     // Carrega do localStorage ao iniciar
     useEffect(() => {
@@ -31,6 +33,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }, [cart]);
 
     function addToCart(productId: number, quantity: number = 1) {
+        if (!isAuthenticated) return;
         setCart((prev) => {
             const exists = prev.find((p) => p.productId === productId);
             if (exists) {
@@ -43,26 +46,31 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             return [...prev, { productId, quantity }];
         });
     }
+
     function decreaseQuantity(productId: number) {
-    setCart((prev) =>
-        prev.map((p) =>
-            p.productId === productId && p.quantity > 1
-                ? { ...p, quantity: p.quantity - 1 }
-                : p
-        )
-    );
-}
+        if (!isAuthenticated) return;
+        setCart((prev) =>
+            prev.map((p) =>
+                p.productId === productId && p.quantity > 1
+                    ? { ...p, quantity: p.quantity - 1 }
+                    : p
+            )
+        );
+    }
 
     function removeFromCart(productId: number) {
+        if (!isAuthenticated) return;
         setCart((prev) => prev.filter((p) => p.productId !== productId));
     }
 
     function clearCart() {
+        if (!isAuthenticated) return;
         setCart([]);
     }
 
     // Sincroniza com a Fake Store API (POST ou PUT)
     async function syncCart() {
+        if (!isAuthenticated) return;
         const payload = {
             userId,
             date: new Date().toISOString().split("T")[0],

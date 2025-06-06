@@ -45,7 +45,7 @@ export const HeroModalProduct = ({
                                         height={200}
                                     />
                                     <p className="text-tiny uppercase font-bold">{category}</p>
-                                    <p className="font-bold text-primary mb-2 text-lg">${price}</p>
+                                    <p className="font-bold text-primary mb-2 text-lg">R${price}</p>
                                     <p className="text-sm text-gray-600 text-center">{description}</p>
                                 </div>
                             </ModalBody>

@@ -71,9 +71,9 @@ export const HeroFooter = () => {
           <div id="contato">
             <h4 className="font-bold text-lg mb-4">Contato</h4>
             <ul className="space-y-2">
-              <HeroFooterItemIcon href="#" icon={<MapPinIcon />} nome="Av. Paulista, 1000 - São Paulo/SP" />
-              <HeroFooterItemIcon href="#" icon={<MessageCircleDashedIcon />} nome="(11) 4002-8922" />
-              <HeroFooterItemIcon href="#" icon={<AtSignIcon />} nome="contato@ustore.com.br" />
+              <HeroFooterItemIcon href="#" icon={<MapPinIcon />} nome="Rua Patoense, 111, Patos-Pb" />
+              <HeroFooterItemIcon href="#" icon={<MessageCircleDashedIcon />} nome="(01)92345-6789" />
+              <HeroFooterItemIcon href="#" icon={<AtSignIcon />} nome="ustore@email.com.br" />
               <HeroFooterItemIcon href="#" icon={<ClockIcon />} nome="Seg-Sex: 9h-18h" />
             </ul>
           </div>

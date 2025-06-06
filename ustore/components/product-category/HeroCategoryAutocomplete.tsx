@@ -33,20 +33,22 @@ export const HeroCategoryAutocomplete = () => {
 
     return (
         <div>
-            <Autocomplete
-                className="max-w-xs"
-                defaultItems={productsCategories}
-                label="Categoria"
-                placeholder="Selecione uma categoria"
-                onSelectionChange={(key) => setSelectedCategory(key as string | null)}
+            <div className="flex justify-center ">
+                <Autocomplete
+                    className="max-w-xs"
+                    defaultItems={productsCategories}
+                    label="Categoria"
+                    placeholder="Selecione uma categoria"
+                    onSelectionChange={(key) => setSelectedCategory(key as string | null)}
 
-            >
-                {(item) => (
-                    <AutocompleteItem key={item.key}>{item.label}</AutocompleteItem>
-                )}
-            </Autocomplete>
+                >
+                    {(item) => (
+                        <AutocompleteItem key={item.key}>{item.label}</AutocompleteItem>
+                    )}
+                </Autocomplete>
+            </div>
 
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 pb-4">
                 {filteredProducts.map((product) => (
                 <HeroCardProduct 
                     id={product.id} 

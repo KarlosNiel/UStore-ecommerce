@@ -11,6 +11,8 @@ import {
 import { CartIcon } from "@/components/ui/icons/common-icons/cart";
 import { useCart } from "@/hooks/useCart";
 import { CartProduct } from "@/types/Cart";
+import { useAuth } from "@/context/AuthContext";
+import { Badge } from "@heroui/react";
 
 type ProductDetails = {
     id: number;
@@ -23,7 +25,8 @@ export const HeroDrawerCart = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const { cart, removeFromCart, clearCart, syncCart, addToCart, decreaseQuantity } = useCart();
     const [products, setProducts] = useState<Record<number, ProductDetails>>({});
-
+    const { isAuthenticated } = useAuth();
+    
     // Busca detalhes dos produtos do carrinho
     useEffect(() => {
         async function fetchProducts() {
@@ -51,10 +54,23 @@ export const HeroDrawerCart = () => {
         return sum + product.price * item.quantity;
     }, 0);
 
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
     return (
         <>
             <span onClick={onOpen} className="cursor-pointer">
-                <CartIcon />
+                <div className="relative w-6 h-6 flex items-center justify-center">
+                    <Badge
+                    color="danger"
+                    content={totalItems}
+                    isInvisible={!isAuthenticated || totalItems === 0}
+                    size="sm"
+                    showOutline={false}
+                    className="absolute -top-1 -right-1"
+                    >
+                    <CartIcon />
+                    </Badge>
+                </div>
             </span>
             <Drawer isOpen={isOpen} onOpenChange={onOpenChange}>
                 <DrawerContent>
@@ -64,7 +80,12 @@ export const HeroDrawerCart = () => {
                                 Seu Carrinho
                             </DrawerHeader>
                             <DrawerBody>
-                                {cart.length === 0 ? (
+                                {!isAuthenticated ? (
+                                    <div className="text-center text-warning font-bold">
+                                        Faça login para usar o carrinho!
+                                    </div>
+                                ) : (
+                                    cart.length === 0 ? (
                                     <p className="text-center text-gray-500">
                                         Seu carrinho está vazio.
                                     </p>
@@ -120,14 +141,23 @@ export const HeroDrawerCart = () => {
                                             </Button>
                                         </div>
                                     ))
-                                )}
+                                )
+                            )}
                             </DrawerBody>
+                                
                             <DrawerFooter className="flex flex-col gap-8">
                                 <div className="w-full flex justify-between items-center font-bold text-lg">
                                     <span>Total:</span>
+                                    {!isAuthenticated ? (
+                                    <span>
+                                        R$ 0,00
+                                    </span>
+                                    ) : (
                                     <span>
                                         R$ {total.toFixed(2)}
                                     </span>
+                                    )}
+
                                 </div>
                                 <div className="flex justify-end items-center">
                                     <Button color="danger" variant="light" onPress={clearCart}>

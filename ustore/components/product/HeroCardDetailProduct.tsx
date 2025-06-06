@@ -1,7 +1,8 @@
 "use client";
 
-import { Card, CardHeader, CardBody, Image } from "@heroui/react";
-import { ProductProps } from "../../../../types/ProductProps";
+import { Card, CardHeader, CardBody, CardFooter, Image } from "@heroui/react";
+import { ProductProps } from "../../types/ProductProps";
+import { HeroAddToCartButton } from "@/components/cart/HeroAddToCartButton";
 
 export const HeroCardDetailProduct = ({
     id,
@@ -24,13 +25,15 @@ export const HeroCardDetailProduct = ({
                 <CardHeader className="pb-0 pt-4 px-4 flex-col items-center">
                     <p className="text-xl uppercase font-bold text-center break-words max-w-md">{title}</p>
                     <h4 className="font-bold text-lg">{category}</h4>
-                    <p className="font-bold text-lg text-primary mb-1">${price}</p>
+                    <p className="font-bold text-lg text-primary mb-1">R${price}</p>
                 </CardHeader>
                 <p className="text-sm text-gray-600 mt-2 text-center break-words max-w-md">
                     {description}
                 </p>
-                <div className="flex-1 w-full flex flex-col justify-end mt-4">
-                </div>
+                <CardFooter className="flex justify-center mt-2">
+                    <HeroAddToCartButton productId={id} />
+                </CardFooter>
+
             </CardBody>
         </Card>
     );

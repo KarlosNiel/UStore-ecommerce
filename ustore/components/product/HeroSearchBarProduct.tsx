@@ -21,7 +21,7 @@ export const HeroSearchBarProduct = () => {
 
     return (
         <div className="p-4 flex flex-col justify-center items-center">
-            <div className="flex flex-col items-center w-full max-w-2xl">
+            <div className="flex flex-col items-center w-full max-w-2xl pb-6">
                 <HeroSearchBar value={search} onChange={e => setSearch(e.target.value)} className="" />
             </div>
             
