@@ -11,14 +11,13 @@
     NavbarMenu,
     NavbarMenuItem,
     Link,
-    Button,
   } from "@heroui/react";
 
-  import { HeroDrawerCart } from "@/components/hero-drawer/HeroDrawerCart";
+  import { HeroDrawerCart } from "@/components/drawer/HeroDrawerCart";
   import { ThemeSwitch } from "../theme/theme-switch";
   import { Logo } from "@/components/ui/logo";
-  import { CartIcon } from "../ui/icons/common-icons/cart";
   import { HeroNavbarItem } from "./HeroNavbarItem";
+  import { HeroModalAboutUs } from "../about/HeroModalAboutUs"
 
   export const HeroNavbar = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -44,14 +43,15 @@
             <Logo />
           </NavbarBrand>
         </NavbarContent>
-
+        {/* Links de navegação */}
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <HeroNavbarItem nome="Homepage" href="/products/" />
           <HeroNavbarItem nome="Categorias" href="/products/category/" />
-          <HeroNavbarItem nome="Sobre" href="#" />
+          <HeroModalAboutUs />
           <HeroNavbarItem nome="Contato" href="#contato"/>
         </NavbarContent>
 
+        {/* botoões de ações */}
         <NavbarContent justify="end">
           <NavbarItem>
             <HeroDrawerCart />
@@ -68,6 +68,7 @@
           )}
         </NavbarContent>
 
+        {/* Menu de navegação */}
         <NavbarMenu>
           {menuItems.map((item) => (
             <NavbarMenuItem key={item.nome}>

@@ -15,7 +15,7 @@ import { AtSignIcon  } from "../ui/icons/common-icons/at-sign";
 import { Logo } from "../ui/logo";
 import { MessageCircleDashedIcon } from "../ui/icons/common-icons/message-circle-dashed";
 import { SocialLink } from "./HeroFooterSocialLink";
-import { HeroFooterItem } from "@/components/hero-footer/HeroFooterItem"
+import { HeroFooterItem } from "@/components/footer/HeroFooterItem"
 import { HeroFooterItemIcon } from "./HeroFooterItemIcon";
 
 export const HeroFooter = () => {
@@ -25,7 +25,7 @@ export const HeroFooter = () => {
     <footer className="bg-black dark:bg-transparent text-white pt-8 pb-6">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          {/* Logo e descrição */}
+          {/* Logo e Descrição */}
           <div>
             <div className="flex items-center mb-4">
               <Logo />
@@ -34,8 +34,8 @@ export const HeroFooter = () => {
               A melhor experiência de compra online com produtos de qualidade e atendimento excepcional.
             </p>
             <div className="flex gap-3">
-              <SocialLink href="#" icon={<GithubIcon />} />
-              <SocialLink href="#" icon={<LinkedinIcon />} />
+              <SocialLink href="https://github.com/KarlosNiel/UStore-ecommerce" icon={<GithubIcon />} />
+              <SocialLink href="https://www.linkedin.com/in/carlos-daniel-11628a288/" icon={<LinkedinIcon />} />
               <SocialLink href="#" icon={<DiscordIcon />} />
               <SocialLink href="#" icon={<TwitterIcon />} />
               <SocialLink href="#" icon={<InstagramIcon/>} />
@@ -55,7 +55,7 @@ export const HeroFooter = () => {
             </ul>
           </div>
 
-          {/* Minha Conta */}
+          {/* Conta */}
           <div>
             <h4 className="font-bold text-lg mb-4">Minha Conta</h4>
             <ul className="space-y-2 flex flex-col">

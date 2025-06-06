@@ -1,8 +1,7 @@
 import { ProductProps } from "../../../types/ProductProps";
 import { HeroCardDetailProduct } from "../../../components/product/HeroCardDetailProduct";
 import { HeroPassPage } from "../../../components/product/HeroPassPage";
-
-
+import { Metadata } from "next";
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -28,6 +27,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
     return (
         <>
+        <metadata />
             <HeroCardDetailProduct
                 id={product.id}
                 title={product.title}
@@ -43,3 +43,6 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         </>
     );
 }
+
+
+

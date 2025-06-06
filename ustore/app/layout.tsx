@@ -7,22 +7,28 @@ import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
-import { HeroNavbar } from "@/components/hero-navbar/HeroNavbar";
-import { HeroFooter } from "@/components/hero-footer/HeroFooter";
+import { HeroNavbar } from "@/components/navbar/HeroNavbar";
+import { HeroFooter } from "@/components/footer/HeroFooter";
 import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
-
+    title: "UStore E-commerce",
+    description: "Compre seus Produtos no UStore E-commerce!",
+    openGraph: {
+        title: "UStore E-commerce",
+        description: "Compre seus Produtos no UStore E-commerce!",
+    },
+    robots: {
+        index: true,
+        follow: true,
+        nocache: true,
+        googleBot: {
+            index: true,
+            follow: true,
+        }
+    }
+}
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
