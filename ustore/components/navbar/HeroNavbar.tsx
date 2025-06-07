@@ -26,8 +26,8 @@
     const menuItems = [
       {nome: "Homepage", href: "/products/"},
       {nome: "Categorias", href: "/products/category/"},
-      {nome: "sobre", href: "#"},
-      {nome: "contato", href: "#contato"}
+      {nome: "Sobre", href: <HeroModalAboutUs />},
+      {nome: "Contato", href: "#contato"}
     ];
 
     const handleMenuItemClick = () => setIsMenuOpen(false);
@@ -72,15 +72,21 @@
         <NavbarMenu>
           {menuItems.map((item) => (
             <NavbarMenuItem key={item.nome}>
-              <Link
-                className="w-full"
-                color="foreground"
-                href={item.href}
-                size="lg"
-                onClick={handleMenuItemClick}
-              >
-                {item.nome}
-              </Link>
+              {typeof item.href === "string" ? (
+                <Link
+                  className="w-full"
+                  color="foreground"
+                  href={item.href}
+                  size="lg"
+                  onClick={handleMenuItemClick}
+                >
+                  {item.nome}
+                </Link>
+              ) : (
+                <span>
+                  {item.href}
+                </span>
+              )}
             </NavbarMenuItem>
           ))}
         </NavbarMenu>
